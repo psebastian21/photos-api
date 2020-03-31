@@ -20,5 +20,8 @@ public class UserService {
 	public User get(int id){
 		return userRepository.get(id);
 	}
+	public List<User> getUsersForAlbumAndPermissions(int albumId, boolean writePerm, boolean readPerm) {
+		return userRepository.getUsersForAlbumAndPermissions(albumId, writePerm, readPerm);
+	}
 
 }

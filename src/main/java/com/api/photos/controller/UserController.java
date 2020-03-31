@@ -25,5 +25,10 @@ public class UserController {
 	public ResponseEntity<User> get(@PathVariable int id){
 		return ResponseEntity.ok(userService.get(id));
 	}
+	@GetMapping("/users/{albumId}/{wPerm}/{rPerm}")
+	public ResponseEntity<List<User>> getUsersForAlbumAndPermissions(@PathVariable int albumId, 
+			@PathVariable boolean wPerm, @PathVariable boolean rPerm) {
+		return ResponseEntity.ok(userService.getUsersForAlbumAndPermissions(albumId, wPerm, rPerm));
+	}
 
 }

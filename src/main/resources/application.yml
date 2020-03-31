@@ -2,3 +2,17 @@ server:
   servlet:
     context-path: /api
   port: 3333
+
+jdbc:
+  driverClassName: org.postgresql.Driver
+  username: postgres
+  password: '12345'
+  url: jdbc:postgresql://localhost:5432/photos-db
+
+#c3p0 pool
+c3p0:
+  acquire_increment: 5
+  max_size: 30
+  min_size: 5
+  max_idle_time: 1200
+  unreturned_connection_timeout: 120
