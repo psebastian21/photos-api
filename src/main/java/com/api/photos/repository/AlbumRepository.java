@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import com.api.photos.model.Album;
 
 @Repository
-public class AlbumRepositoryWebAndSQLImpl implements IAlbumRepository {
+public class AlbumRepository implements IAlbumRepository {
 	
 	private static final String ALBUM_LIST_URL = "https://jsonplaceholder.typicode.com/albums";
 	private static final String ALBUMS_PER_USER_URL = "https://jsonplaceholder.typicode.com/users/%d/albums";

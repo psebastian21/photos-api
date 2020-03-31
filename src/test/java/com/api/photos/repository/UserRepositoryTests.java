@@ -23,7 +23,7 @@ public class UserRepositoryTests {
 	private RestTemplate restTemplate;
 	
 	@InjectMocks
-	private UserRepositoryWebAndSQLImpl userRepository;
+	private UserRepository userRepository;
 
 	@Test
 	public void testGetAllUsers() {

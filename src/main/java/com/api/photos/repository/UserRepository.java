@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import com.api.photos.model.User;
 
 @Repository
-public class UserRepositoryWebAndSQLImpl implements IUserRepository {
+public class UserRepository implements IUserRepository {
 	
 	private static final String USER_LIST_URL = "https://jsonplaceholder.typicode.com/users";
 	private static final String SQL_GET_USER_IDS_FOR_ALBUM_AND_PERMISSIONS = "select\r\n" + 

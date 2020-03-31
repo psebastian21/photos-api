@@ -13,7 +13,7 @@ import com.api.photos.model.Album;
 import com.api.photos.model.Photo;
 
 @Repository
-public class PhotoRepositoryWebAndSQLImpl implements IPhotoRepository {
+public class PhotoRepository implements IPhotoRepository {
 	
 	private static final String PHOTO_LIST_URL = "https://jsonplaceholder.typicode.com/photos";
 	private static final String PHOTOS_FOR_ALBUM_URL = "https://jsonplaceholder.typicode.com/albums/%d/photos";
