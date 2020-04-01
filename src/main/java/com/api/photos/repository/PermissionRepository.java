@@ -1,7 +1,5 @@
 package com.api.photos.repository;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
@@ -14,21 +12,11 @@ import com.api.photos.exception.PermissionPuttingException;
 @Repository
 public class PermissionRepository implements IPermissionRepository {
 	
-	private static final String SQL_VERIFY_PERMISSION_BY_ALBUM_AND_USER_IDS = "SELECT\r\n" + 
-			"	COUNT(*) AS PRM_COUNT\r\n" + 
-			"FROM\r\n" + 
-			"	PHOTOS.PERMISSION\r\n" + 
-			"WHERE\r\n" + 
-			"	USER_ID = ? AND ALBUM_ID = ?";
-	private static final String SQL_UPDATE_PERMISSION = "UPDATE\r\n" + 
-			"	PHOTOS.PERMISSION\r\n" + 
-			"SET\r\n" + 
-			"	READ_PERMISSION = ?,\r\n" + 
-			"	WRITE_PERMISSION = ?\r\n" + 
-			"WHERE\r\n" + 
-			"	USER_ID = ? AND ALBUM_ID = ?";
-	private static final String SQL_INSERT_PERMISSION = "INSERT INTO PHOTOS.PERMISSION\r\n" + 
-			"VALUES(?, ?, ?, ?)";
+	private static final String SQL_UPSERT_PERMISSION = 
+			"INSERT INTO PHOTOS.PERMISSION(USER_ID, ALBUM_ID, READ_PERMISSION, WRITE_PERMISSION)\r\n" + 
+			"VALUES(?, ?, ?, ?)\r\n" + 
+			"ON CONFLICT ON CONSTRAINT PK_PERM DO UPDATE\r\n" + 
+			"SET WRITE_PERMISSION = EXCLUDED.WRITE_PERMISSION, READ_PERMISSION = EXCLUDED.READ_PERMISSION";
 	
 	@Autowired
 	private JdbcOperations jdbc;
@@ -40,19 +28,11 @@ public class PermissionRepository implements IPermissionRepository {
 	private PlatformTransactionManager platformTransactionManager;
 
 	@Override
-	public void putPermission(int userId, int albumId, boolean wPerm, boolean rPerm) throws PermissionPuttingException{
+	public void put(int userId, int albumId, boolean wPerm, boolean rPerm) throws PermissionPuttingException{
 		this.verifyUserAndAlbum(userId, albumId);
-		DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
-		TransactionStatus status = platformTransactionManager.getTransaction(defaultTransactionDefinition);
-		Optional<Integer> permFound = Optional.ofNullable
-				(jdbc.queryForObject(SQL_VERIFY_PERMISSION_BY_ALBUM_AND_USER_IDS, new Object[]{userId, albumId}, Integer.class));
+		TransactionStatus status = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());
 		try {
-			if(permFound.orElse(0) == 0) {
-				jdbc.update(SQL_INSERT_PERMISSION, userId, albumId, rPerm, wPerm);
-			}
-			else {
-				jdbc.update(SQL_UPDATE_PERMISSION, rPerm, wPerm, userId, albumId);
-			}
+			jdbc.update(SQL_UPSERT_PERMISSION, userId, albumId, rPerm, wPerm);
 			platformTransactionManager.commit(status);
 		}
 		catch(Exception e) {

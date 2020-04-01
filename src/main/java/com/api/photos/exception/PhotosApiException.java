@@ -10,5 +10,6 @@ public class PhotosApiException extends RuntimeException {
 	public PhotosApiException(String message, Throwable cause) {
 		super(message, cause);
 	}
+	public PhotosApiException() {}
 
 }

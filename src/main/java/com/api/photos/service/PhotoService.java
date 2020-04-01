@@ -15,7 +15,7 @@ public class PhotoService {
 	private IPhotoRepository photoRepository;
 	
 	public List<Photo> getAllPhotos(){
-		return photoRepository.getAllPhotos();
+		return photoRepository.getAll();
 	}
 	public Photo get(int id){
 		return photoRepository.get(id);

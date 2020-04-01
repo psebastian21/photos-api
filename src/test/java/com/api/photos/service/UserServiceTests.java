@@ -31,7 +31,7 @@ public class UserServiceTests {
 		User u2 = new User();
 		u2.setId(2);
 		List<User> users = Arrays.asList(u1, u2);
-		Mockito.when(userRepository.getAllUsers()).thenReturn(users);
+		Mockito.when(userRepository.getAll()).thenReturn(users);
 		//Act
 		List<User> response = userService.getAllUsers();
 		//Assert

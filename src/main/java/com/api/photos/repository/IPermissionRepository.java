@@ -2,6 +2,6 @@ package com.api.photos.repository;
 
 public interface IPermissionRepository {
 	
-	void putPermission(int userId, int albumId, boolean wPerm, boolean rPerm);
+	void put(int userId, int albumId, boolean wPerm, boolean rPerm);
 
 }

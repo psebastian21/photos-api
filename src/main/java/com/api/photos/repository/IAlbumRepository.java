@@ -6,8 +6,8 @@ import com.api.photos.model.Album;
 
 public interface IAlbumRepository {
 	
-	List<Album> getAllAlbums();
+	List<Album> getAll();
 	Album get(int id);
-	List<Album> getAlbumsForUser(int userId);
+	List<Album> getByUser(int userId);
 
 }

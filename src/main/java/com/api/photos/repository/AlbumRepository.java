@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
+import com.api.photos.exception.NotFoundException;
 import com.api.photos.model.Album;
 
 @Repository
@@ -20,7 +21,7 @@ public class AlbumRepository implements IAlbumRepository {
 	private RestTemplate restTemplate;
 
 	@Override
-	public List<Album> getAllAlbums() {
+	public List<Album> getAll() {
 		ResponseEntity<Album[]> response = restTemplate.getForEntity(ALBUM_LIST_URL, Album[].class);
 		return Arrays.asList(response.getBody());
 	}
@@ -32,9 +33,12 @@ public class AlbumRepository implements IAlbumRepository {
 	}
 
 	@Override
-	public List<Album> getAlbumsForUser(int userId) {
+	public List<Album> getByUser(int userId) {
 		ResponseEntity<Album[]> response = restTemplate
 				.getForEntity(String.format(ALBUMS_PER_USER_URL, userId), Album[].class);
+		if(response.getBody().length == 0) {
+			throw new NotFoundException();
+		}
 		return Arrays.asList(response.getBody());
 	}
 

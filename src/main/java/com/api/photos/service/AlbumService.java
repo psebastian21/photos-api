@@ -15,7 +15,7 @@ public class AlbumService {
 	private IAlbumRepository albumRepository;
 	
 	public List<Album> getAllAlbums(){
-		return albumRepository.getAllAlbums();
+		return albumRepository.getAll();
 	}
 	public Album get(int id){
 		return albumRepository.get(id);

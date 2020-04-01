@@ -12,7 +12,7 @@ public class PermissionService {
 	private IPermissionRepository permissionRepository;
 	
 	public void putPermission(int userId, int albumId, boolean wPerm, boolean rPerm) {
-		this.permissionRepository.putPermission(userId, albumId, wPerm, rPerm);
+		this.permissionRepository.put(userId, albumId, wPerm, rPerm);
 	}
 
 }

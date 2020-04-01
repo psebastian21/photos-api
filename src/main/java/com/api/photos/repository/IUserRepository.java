@@ -6,7 +6,7 @@ import com.api.photos.model.User;
 
 public interface IUserRepository {
 
-	List<User> getAllUsers();
+	List<User> getAll();
 	User get(int id);
 	List<User> getUsersForAlbumAndPermissions(int albumId, boolean writePerm, boolean readPerm);
 

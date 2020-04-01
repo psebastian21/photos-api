@@ -36,7 +36,7 @@ public class UserRepositoryTests {
 		ResponseEntity<User[]> response = ResponseEntity.ok(users);
 		Mockito.when(restTemplate.getForEntity(USER_LIST_URL, User[].class)).thenReturn(response);
 		//Act
-		List<User> userList = userRepository.getAllUsers();
+		List<User> userList = userRepository.getAll();
 		//Assert
 		Assert.assertArrayEquals(users, userList.toArray(new User[0]));
 	}

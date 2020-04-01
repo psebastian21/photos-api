@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
+import com.api.photos.exception.NotFoundException;
 import com.api.photos.model.User;
 
 @Repository
@@ -30,7 +31,7 @@ public class UserRepository implements IUserRepository {
 	private JdbcOperations jdbc;
 	
 	@Override
-	public List<User> getAllUsers(){
+	public List<User> getAll(){
 		ResponseEntity<User[]> response = restTemplate.getForEntity(USER_LIST_URL, User[].class);
 		return Arrays.asList(response.getBody());
 	}
@@ -42,17 +43,21 @@ public class UserRepository implements IUserRepository {
 	}
 
 	@Override
-	public List<User> getUsersForAlbumAndPermissions(int albumId, boolean writePerm, boolean readPerm) {
+	public List<User> getUsersForAlbumAndPermissions(int albumId, boolean writePerm, boolean readPerm) throws NotFoundException{
 		return this.getUserIdsForAlbumAndPermissions(albumId, writePerm, readPerm)
 		.stream()
 		.map(this::get)
 		.collect(Collectors.toList());
 	}
-	
-	private List<Integer> getUserIdsForAlbumAndPermissions(int albumId, boolean writePerm, boolean readPerm){
+
+	private List<Integer> getUserIdsForAlbumAndPermissions(int albumId, boolean writePerm, boolean readPerm) throws NotFoundException{
 		Object[] params = {albumId,  readPerm, writePerm};
 		RowMapper<Integer> rm = (rs, rowNum) -> Integer.valueOf(rs.getInt("user_id"));
-		return jdbc.query(SQL_GET_USER_IDS_FOR_ALBUM_AND_PERMISSIONS, params, rm);
+		List<Integer> result = jdbc.query(SQL_GET_USER_IDS_FOR_ALBUM_AND_PERMISSIONS, params, rm);
+		if(result.isEmpty()) {
+			throw new NotFoundException();
+		}
+		return result;
 	}
 
 }

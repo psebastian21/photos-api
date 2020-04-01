@@ -15,7 +15,7 @@ public class UserService {
 	private IUserRepository userRepository;
 	
 	public List<User> getAllUsers(){
-		return userRepository.getAllUsers();
+		return userRepository.getAll();
 	}
 	public User get(int id){
 		return userRepository.get(id);
