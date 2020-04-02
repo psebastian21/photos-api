@@ -18,8 +18,8 @@ public class AlbumController {
 	private AlbumService albumService;
 	
 	@GetMapping("/albums")
-	public ResponseEntity<List<Album>> getAllUsers(){
-		return ResponseEntity.ok(albumService.getAllAlbums());
+	public ResponseEntity<List<Album>> getAll(){
+		return ResponseEntity.ok(albumService.getAll());
 	}
 	@GetMapping("/albums/{id}")
 	public ResponseEntity<Album> get(@PathVariable int id){

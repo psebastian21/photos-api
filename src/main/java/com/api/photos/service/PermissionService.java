@@ -11,7 +11,7 @@ public class PermissionService {
 	@Autowired
 	private IPermissionRepository permissionRepository;
 	
-	public void putPermission(int userId, int albumId, boolean wPerm, boolean rPerm) {
+	public void put(int userId, int albumId, boolean wPerm, boolean rPerm) {
 		this.permissionRepository.put(userId, albumId, wPerm, rPerm);
 	}
 

@@ -16,10 +16,11 @@ public class PermissionController {
 	private PermissionService permissionService;
 	
 	@PostMapping("/permission")
-	public ResponseEntity<String> putPermission(@RequestBody PostPermissionDTO input){
-		this.permissionService.putPermission(input.getUserId(), input.getAlbumId(), input.getWritePerm(), 
+	public ResponseEntity<ResponseMessage> put(@RequestBody PostPermissionDTO input){
+		this.permissionService.put(input.getUserId(), input.getAlbumId(), input.getWritePerm(), 
 				input.getReadPerm());
-		return ResponseEntity.ok("confirmed");
+		ResponseMessage message = new ResponseMessage("Confirmed");
+		return ResponseEntity.ok(message);
 	}
 
 }

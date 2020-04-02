@@ -6,8 +6,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.web.client.HttpClientErrorException;
 
 import com.api.photos.exception.PermissionPuttingException;
+import com.api.photos.model.Album;
 
 @Repository
 public class PermissionRepository implements IPermissionRepository {
@@ -45,9 +47,12 @@ public class PermissionRepository implements IPermissionRepository {
 	private void verifyUserAndAlbum(int userId, int albumId) throws PermissionPuttingException{
 		try {
 			userRepository.get(userId);
-			albumRepository.get(albumId);
+			Album album = albumRepository.get(albumId);
+			if (album.getUserId() == userId) {
+				throw new PermissionPuttingException("Specified user already owns specified album");
+			}
 		}
-		catch(Exception e) {
+		catch(HttpClientErrorException.NotFound e) {
 			throw new PermissionPuttingException("User or album nonexistent, or service down", e);
 		}
 		

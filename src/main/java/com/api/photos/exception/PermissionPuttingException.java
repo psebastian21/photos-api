@@ -11,4 +11,8 @@ public class PermissionPuttingException extends PhotosApiException {
 		super(message, cause);
 	}
 
+	public PermissionPuttingException(String message) {
+		super(message);
+	}
+
 }

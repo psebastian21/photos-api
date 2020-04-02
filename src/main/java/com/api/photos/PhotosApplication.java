@@ -4,6 +4,8 @@ import java.beans.PropertyVetoException;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -13,6 +15,7 @@ import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.client.RestTemplate;
 
+import com.api.photos.controller.ControllerExceptionHandler;
 import com.api.photos.exception.DataSourceConfigException;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
@@ -52,5 +55,10 @@ public class PhotosApplication {
         ds.setUnreturnedConnectionTimeout(env.getRequiredProperty("c3p0.unreturned_connection_timeout", Integer.class));
         return ds;
     }
+	
+	@Bean
+	Logger controllerAdvicelogger() {
+		return LoggerFactory.getLogger(ControllerExceptionHandler.class);
+	}
 
 }

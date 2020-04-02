@@ -14,7 +14,7 @@ public class AlbumService {
 	@Autowired
 	private IAlbumRepository albumRepository;
 	
-	public List<Album> getAllAlbums(){
+	public List<Album> getAll(){
 		return albumRepository.getAll();
 	}
 	public Album get(int id){
