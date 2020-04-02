@@ -33,7 +33,7 @@ public class UserServiceTests {
 		List<User> users = Arrays.asList(u1, u2);
 		Mockito.when(userRepository.getAll()).thenReturn(users);
 		//Act
-		List<User> response = userService.getAllUsers();
+		List<User> response = userService.getAll();
 		//Assert
 		Assert.assertEquals(users, response);
 	}

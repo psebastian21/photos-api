@@ -22,5 +22,4 @@ public class PermissionController {
 		ResponseMessage message = new ResponseMessage("Confirmed");
 		return ResponseEntity.ok(message);
 	}
-
 }

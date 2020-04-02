@@ -18,16 +18,16 @@ public class PhotoController {
 	private PhotoService photoService;
 	
 	@GetMapping("/photos")
-	public ResponseEntity<List<Photo>> getAllUsers(){
-		return ResponseEntity.ok(photoService.getAllPhotos());
+	public ResponseEntity<List<Photo>> getAll(){
+		return ResponseEntity.ok(photoService.getAll());
 	}
 	@GetMapping("/photos/{id}")
 	public ResponseEntity<Photo> get(@PathVariable int id){
 		return ResponseEntity.ok(photoService.get(id));
 	}
 	@GetMapping("/users/{userId}/photos")
-	public ResponseEntity<List<Photo>> getPhotosForUser(@PathVariable int userId){
-		return ResponseEntity.ok(photoService.getPhotosForUser(userId));
+	public ResponseEntity<List<Photo>> getByUser(@PathVariable int userId){
+		return ResponseEntity.ok(photoService.getByUser(userId));
 	}
 
 }

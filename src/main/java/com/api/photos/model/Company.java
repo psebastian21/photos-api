@@ -2,44 +2,14 @@ package com.api.photos.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Company {
-	
 	private String name;
 	private String catchPhrase;
 	private String bs;
-	
-	public Company() {}
-	public Company(String name, String catchPhrase, String bs) {
-		this.name = name;
-		this.catchPhrase = catchPhrase;
-		this.bs = bs;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getCatchPhrase() {
-		return catchPhrase;
-	}
-
-	public void setCatchPhrase(String catchPhrase) {
-		this.catchPhrase = catchPhrase;
-	}
-
-	public String getBs() {
-		return bs;
-	}
-
-	public void setBs(String bs) {
-		this.bs = bs;
-	}
-	
-	
-
 }

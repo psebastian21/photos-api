@@ -14,13 +14,13 @@ public class PhotoService {
 	@Autowired
 	private IPhotoRepository photoRepository;
 	
-	public List<Photo> getAllPhotos(){
+	public List<Photo> getAll(){
 		return photoRepository.getAll();
 	}
 	public Photo get(int id){
 		return photoRepository.get(id);
 	}
-	public List<Photo> getPhotosForUser(int userId){
+	public List<Photo> getByUser(int userId){
 		return photoRepository.getPhotosForUser(userId);
 	}
 

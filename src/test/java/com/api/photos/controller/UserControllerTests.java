@@ -3,6 +3,7 @@ package com.api.photos.controller;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -14,8 +15,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.api.photos.model.User;
 import com.api.photos.service.UserService;
 
-import org.junit.Assert;
-
 @RunWith(SpringRunner.class)
 public class UserControllerTests {
 	
@@ -26,7 +25,7 @@ public class UserControllerTests {
 	private UserController userController;
 	
 	@Test
-	public void testGetAllUsers() {
+	public void testGetAll() {
 		//Arrange
 		User u1 = new User();
 		u1.setId(1);
@@ -34,9 +33,9 @@ public class UserControllerTests {
 		u2.setId(2);
 		List<User> users = Arrays.asList(u1, u2);
 		ResponseEntity<List<User>> expectedResponse = ResponseEntity.ok(users);
-		Mockito.when(userService.getAllUsers()).thenReturn(users);
+		Mockito.when(userService.getAll()).thenReturn(users);
 		//Act
-		ResponseEntity<List<User>> actualResponse = userController.getAllUsers();
+		ResponseEntity<List<User>> actualResponse = userController.getAll();
 		//Assert
 		Assert.assertEquals(expectedResponse, actualResponse);
 	}
@@ -49,6 +48,20 @@ public class UserControllerTests {
 		ResponseEntity<User> expectedResponse = ResponseEntity.ok(u1);
 		//Act
 		ResponseEntity<User> actualResponse = userController.get(1);
+		//Assert
+		Assert.assertEquals(expectedResponse, actualResponse);
+	}
+	@Test
+	public void testGetByAlbumAndPermissions() {
+		//Arrange
+		User u1 = new User();
+		User u2 = new User();
+		List<User> users = Arrays.asList(u1, u2);
+		Mockito.when(userService.getByAlbumAndPermissions(Mockito.anyInt(), Mockito.anyBoolean(), Mockito.anyBoolean()))
+		.thenReturn(users);
+		ResponseEntity<List<User>> expectedResponse = ResponseEntity.ok(users);
+		//Act
+		ResponseEntity<List<User>> actualResponse = userController.getByAlbumAndPermissions(1, true, true);
 		//Assert
 		Assert.assertEquals(expectedResponse, actualResponse);
 	}

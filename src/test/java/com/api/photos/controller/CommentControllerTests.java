@@ -16,8 +16,6 @@ import com.api.photos.model.Comment;
 import com.api.photos.service.CommentService;
 
 @RunWith(SpringRunner.class)
-
-
 public class CommentControllerTests {
 	
 	@Mock

@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "jdbc",
+    "description": "JDBC connection config",
+    "values": [
+            {
+                "value": "driverClassName",
+                "description": "Full class name for the database driver",
+                "type": "java.lang.String"
+            }
+    ]
+  },
+  {
+    "name": "c3p0",
+    "description": "c3p0 connection pooling config"
+  }
+]}

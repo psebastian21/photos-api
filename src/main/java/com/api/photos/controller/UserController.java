@@ -18,17 +18,17 @@ public class UserController {
 	private UserService userService;
 	
 	@GetMapping("/users")
-	public ResponseEntity<List<User>> getAllUsers(){
-		return ResponseEntity.ok(userService.getAllUsers());
+	public ResponseEntity<List<User>> getAll(){
+		return ResponseEntity.ok(userService.getAll());
 	}
 	@GetMapping("/users/{id}")
 	public ResponseEntity<User> get(@PathVariable int id){
 		return ResponseEntity.ok(userService.get(id));
 	}
 	@GetMapping("/users/{albumId}/{wPerm}/{rPerm}")
-	public ResponseEntity<List<User>> getUsersForAlbumAndPermissions(@PathVariable int albumId, 
+	public ResponseEntity<List<User>> getByAlbumAndPermissions(@PathVariable int albumId, 
 			@PathVariable boolean wPerm, @PathVariable boolean rPerm) {
-		return ResponseEntity.ok(userService.getUsersForAlbumAndPermissions(albumId, wPerm, rPerm));
+		return ResponseEntity.ok(userService.getByAlbumAndPermissions(albumId, wPerm, rPerm));
 	}
 
 }

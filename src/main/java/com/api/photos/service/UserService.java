@@ -14,13 +14,13 @@ public class UserService {
 	@Autowired
 	private IUserRepository userRepository;
 	
-	public List<User> getAllUsers(){
+	public List<User> getAll(){
 		return userRepository.getAll();
 	}
 	public User get(int id){
 		return userRepository.get(id);
 	}
-	public List<User> getUsersForAlbumAndPermissions(int albumId, boolean writePerm, boolean readPerm) {
+	public List<User> getByAlbumAndPermissions(int albumId, boolean writePerm, boolean readPerm) {
 		return userRepository.getUsersForAlbumAndPermissions(albumId, writePerm, readPerm);
 	}
 
