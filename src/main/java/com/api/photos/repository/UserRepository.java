@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcOperations;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestOperations;
 
@@ -44,16 +43,16 @@ public class UserRepository implements IUserRepository {
 
 	@Override
 	public List<User> getByAlbumAndPermissions(int albumId, boolean writePerm, boolean readPerm) throws NotFoundException{
-		return this.getUserIdsForAlbumAndPermissions(albumId, writePerm, readPerm)
+		return this.getUserIdsByAlbumAndPermissions(albumId, writePerm, readPerm)
 		.stream()
 		.map(this::get)
 		.collect(Collectors.toList());
 	}
 
-	private List<Integer> getUserIdsForAlbumAndPermissions(int albumId, boolean writePerm, boolean readPerm) throws NotFoundException{
+	private List<Integer> getUserIdsByAlbumAndPermissions(int albumId, boolean writePerm, boolean readPerm) throws NotFoundException{
 		Object[] params = {albumId,  readPerm, writePerm};
-		RowMapper<Integer> rm = (rs, rowNum) -> Integer.valueOf(rs.getInt("user_id"));
-		List<Integer> result = jdbc.query(SQL_GET_USER_IDS_FOR_ALBUM_AND_PERMISSIONS, params, rm);
+		List<Integer> result = jdbc.query(SQL_GET_USER_IDS_FOR_ALBUM_AND_PERMISSIONS, params, 
+				(rs, rowNum) -> Integer.valueOf(rs.getInt("user_id")));
 		if(result.isEmpty()) {
 			throw new NotFoundException();
 		}

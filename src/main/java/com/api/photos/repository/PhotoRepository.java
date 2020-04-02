@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestOperations;
 
 import com.api.photos.model.Album;
 import com.api.photos.model.Photo;
@@ -19,25 +19,25 @@ public class PhotoRepository implements IPhotoRepository {
 	private static final String PHOTOS_FOR_ALBUM_URL = "https://jsonplaceholder.typicode.com/albums/%d/photos";
 	
 	@Autowired
-	private RestTemplate restTemplate;
+	private RestOperations rest;
 	@Autowired
 	private IAlbumRepository albumRepository;
 
 	@Override
 	public List<Photo> getAll() {
-		ResponseEntity<Photo[]> response = restTemplate.getForEntity(PHOTO_LIST_URL, Photo[].class);
+		ResponseEntity<Photo[]> response = rest.getForEntity(PHOTO_LIST_URL, Photo[].class);
 		return Arrays.asList(response.getBody());
 	}
 
 	@Override
 	public Photo get(int id) {
-		ResponseEntity<Photo> response = restTemplate.getForEntity(PHOTO_LIST_URL + "/" + id, Photo.class);
+		ResponseEntity<Photo> response = rest.getForEntity(PHOTO_LIST_URL + "/" + id, Photo.class);
 		return response.getBody();
 	}
 
 	@Override
 	public List<Photo> getByAlbum(int albumId) {
-		ResponseEntity<Photo[]> response = restTemplate
+		ResponseEntity<Photo[]> response = rest
 				.getForEntity(String.format(PHOTOS_FOR_ALBUM_URL, albumId), Photo[].class);
 		return Arrays.asList(response.getBody());
 	}
