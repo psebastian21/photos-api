@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestOperations;
 
 import com.api.photos.exception.NotFoundException;
 import com.api.photos.model.User;
@@ -26,19 +26,19 @@ public class UserRepository implements IUserRepository {
 			"	album_id = ? and read_permission = ? and write_permission = ?";
 	
 	@Autowired
-	private RestTemplate restTemplate;
+	private RestOperations rest;
 	@Autowired
 	private JdbcOperations jdbc;
 	
 	@Override
 	public List<User> getAll(){
-		ResponseEntity<User[]> response = restTemplate.getForEntity(USER_LIST_URL, User[].class);
+		ResponseEntity<User[]> response = rest.getForEntity(USER_LIST_URL, User[].class);
 		return Arrays.asList(response.getBody());
 	}
 
 	@Override
 	public User get(int id) {
-		ResponseEntity<User> response = restTemplate.getForEntity(USER_LIST_URL + "/" + id, User.class);
+		ResponseEntity<User> response = rest.getForEntity(USER_LIST_URL + "/" + id, User.class);
 		return response.getBody();
 	}
 

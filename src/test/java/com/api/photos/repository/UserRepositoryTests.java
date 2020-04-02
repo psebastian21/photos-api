@@ -9,8 +9,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestOperations;
 
 import com.api.photos.model.User;
 
@@ -20,8 +21,9 @@ public class UserRepositoryTests {
 	private static final String USER_LIST_URL = "https://jsonplaceholder.typicode.com/users";
 	
 	@Mock
-	private RestTemplate restTemplate;
-	
+	private RestOperations rest;
+	@Mock
+	private JdbcOperations jdbc;
 	@InjectMocks
 	private UserRepository userRepository;
 
@@ -34,7 +36,7 @@ public class UserRepositoryTests {
 		u2.setId(2);
 		User[] users = {u1, u2};
 		ResponseEntity<User[]> response = ResponseEntity.ok(users);
-		Mockito.when(restTemplate.getForEntity(USER_LIST_URL, User[].class)).thenReturn(response);
+		Mockito.when(rest.getForEntity(USER_LIST_URL, User[].class)).thenReturn(response);
 		//Act
 		List<User> userList = userRepository.getAll();
 		//Assert
@@ -46,7 +48,7 @@ public class UserRepositoryTests {
 		User u1 = new User();
 		u1.setId(1);
 		ResponseEntity<User> expectedResponse = ResponseEntity.ok(u1);
-		Mockito.when(restTemplate.getForEntity(USER_LIST_URL + "/" + 1, User.class)).thenReturn(expectedResponse);
+		Mockito.when(rest.getForEntity(USER_LIST_URL + "/" + 1, User.class)).thenReturn(expectedResponse);
 		//Act
 		User response = userRepository.get(1);
 		//Assert
