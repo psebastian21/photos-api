@@ -36,19 +36,19 @@ public class PhotoRepository implements IPhotoRepository {
 	}
 
 	@Override
-	public List<Photo> getPhotosForAlbum(int albumId) {
+	public List<Photo> getByAlbum(int albumId) {
 		ResponseEntity<Photo[]> response = restTemplate
 				.getForEntity(String.format(PHOTOS_FOR_ALBUM_URL, albumId), Photo[].class);
 		return Arrays.asList(response.getBody());
 	}
 
 	@Override
-	public List<Photo> getPhotosForUser(int userId) {
+	public List<Photo> getByUser(int userId) {
 		List<Photo> photos = new LinkedList<>();
 		albumRepository.getByUser(userId)
 		.stream()
 		.mapToInt(Album::getId)
-		.forEach(albumId -> photos.addAll(this.getPhotosForAlbum(albumId)));
+		.forEach(albumId -> photos.addAll(this.getByAlbum(albumId)));
 		return photos;
 	}
 

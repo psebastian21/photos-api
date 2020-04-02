@@ -21,7 +21,7 @@ public class PhotoService {
 		return photoRepository.get(id);
 	}
 	public List<Photo> getByUser(int userId){
-		return photoRepository.getPhotosForUser(userId);
+		return photoRepository.getByUser(userId);
 	}
 
 }

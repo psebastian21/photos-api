@@ -24,7 +24,7 @@ public class UserServiceTests {
 	private UserService userService;
 	
 	@Test
-	public void testGetAllUsers() {
+	public void testGetAll() {
 		//Arrange
 		User u1 = new User();
 		u1.setId(1);
@@ -48,5 +48,17 @@ public class UserServiceTests {
 		//Assert
 		Assert.assertEquals(u1.getId(), response.getId());
 	}
-
+	@Test
+	public void testGetByAlbumAndPermissions() {
+		//Arrange
+		User u1 = new User();
+		User u2 = new User();
+		List<User> expectedResponse = Arrays.asList(u1, u2);
+		Mockito.when(userRepository.getByAlbumAndPermissions(Mockito.anyInt(), Mockito.anyBoolean(), Mockito.anyBoolean()))
+		.thenReturn(expectedResponse);
+		//Act
+		List<User> actualResponse = userService.getByAlbumAndPermissions(1, true, true);
+		//Assert
+		Assert.assertEquals(expectedResponse, actualResponse);
+	}
 }

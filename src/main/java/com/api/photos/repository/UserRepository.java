@@ -43,7 +43,7 @@ public class UserRepository implements IUserRepository {
 	}
 
 	@Override
-	public List<User> getUsersForAlbumAndPermissions(int albumId, boolean writePerm, boolean readPerm) throws NotFoundException{
+	public List<User> getByAlbumAndPermissions(int albumId, boolean writePerm, boolean readPerm) throws NotFoundException{
 		return this.getUserIdsForAlbumAndPermissions(albumId, writePerm, readPerm)
 		.stream()
 		.map(this::get)

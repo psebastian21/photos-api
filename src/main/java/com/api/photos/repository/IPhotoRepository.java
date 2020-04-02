@@ -8,7 +8,7 @@ public interface IPhotoRepository {
 	
 	List<Photo> getAll();
 	Photo get(int id);
-	List<Photo> getPhotosForAlbum(int albumId);
-	List<Photo> getPhotosForUser(int userId);
+	List<Photo> getByAlbum(int albumId);
+	List<Photo> getByUser(int userId);
 
 }
