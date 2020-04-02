@@ -61,11 +61,11 @@ public class CommentRepository implements ICommentRepository {
 	}
 	
 	private List<Post> getPostsByUser(int userId) throws NotFoundException{
-		ResponseEntity<Post[]> postIds = rest.getForEntity(URL_POSTS_BY_USER, Post[].class, userId);
-		if(postIds.getBody().length == 0) {
+		ResponseEntity<Post[]> posts = rest.getForEntity(URL_POSTS_BY_USER, Post[].class, userId);
+		if(posts.getBody().length == 0) {
 			throw new NotFoundException();
 		}
-		return Arrays.asList(postIds.getBody());
+		return Arrays.asList(posts.getBody());
 	}
 
 }
